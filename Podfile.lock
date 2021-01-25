@@ -1,92 +1,36 @@
 PODS:
-  - Alamofire (4.9.1)
+  - Alamofire (5.4.1)
   - CallbackURLKit (2.3.0):
     - CallbackURLKit/Core (= 2.3.0)
   - CallbackURLKit/Core (2.3.0)
   - ColorPickerRow (1.3.3):
     - Eureka (>= 5.0.0)
     - UIColor_Hex_Swift (>= 3.0.0)
-  - Communicator (3.3.0):
-    - TABObserverSet (~> 2)
+  - Communicator (4.0.0)
   - CPDAcknowledgements (1.0.0)
   - EMTLoadingIndicator (4.0.0)
-  - Eureka (5.2.1)
-  - Firebase/CoreOnly (6.30.0):
-    - FirebaseCore (= 6.10.0)
-  - Firebase/Messaging (6.30.0):
-    - Firebase/CoreOnly
-    - FirebaseMessaging (~> 4.6.1)
-  - FirebaseCore (6.10.0):
-    - FirebaseCoreDiagnostics (~> 1.3)
-    - GoogleUtilities/Environment (~> 6.7)
-    - GoogleUtilities/Logger (~> 6.7)
-  - FirebaseCoreDiagnostics (1.5.0):
-    - GoogleDataTransport (~> 7.0)
-    - GoogleUtilities/Environment (~> 6.7)
-    - GoogleUtilities/Logger (~> 6.7)
-    - nanopb (~> 1.30905.0)
-  - FirebaseInstallations (1.6.0):
-    - FirebaseCore (~> 6.10)
-    - GoogleUtilities/Environment (~> 6.7)
-    - GoogleUtilities/UserDefaults (~> 6.7)
-    - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (4.5.1):
-    - FirebaseCore (~> 6.8)
-    - FirebaseInstallations (~> 1.0)
-    - GoogleUtilities/Environment (~> 6.7)
-    - GoogleUtilities/UserDefaults (~> 6.7)
-  - FirebaseMessaging (4.6.1):
-    - FirebaseCore (~> 6.8)
-    - FirebaseInstanceID (~> 4.3)
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
-    - GoogleUtilities/Environment (~> 6.7)
-    - GoogleUtilities/Reachability (~> 6.7)
-    - GoogleUtilities/UserDefaults (~> 6.7)
-    - Protobuf (>= 3.9.2, ~> 3.9)
-  - GoogleDataTransport (7.2.0):
-    - nanopb (~> 1.30905.0)
-  - GoogleUtilities/AppDelegateSwizzler (6.7.2):
-    - GoogleUtilities/Environment
-    - GoogleUtilities/Logger
-    - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.7.2):
-    - PromisesObjC (~> 1.2)
-  - GoogleUtilities/Logger (6.7.2):
-    - GoogleUtilities/Environment
-  - GoogleUtilities/Network (6.7.2):
-    - GoogleUtilities/Logger
-    - "GoogleUtilities/NSData+zlib"
-    - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.7.2)"
-  - GoogleUtilities/Reachability (6.7.2):
-    - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (6.7.2):
-    - GoogleUtilities/Logger
-  - KeychainAccess (4.2.0)
-  - Lokalise (0.10.0)
-  - lottie-ios (3.1.8)
+  - Eureka (5.3.2)
+  - Firebase (7.4.0)
+  - KeychainAccess (4.2.1)
+  - Lokalise (0.10.2)
+  - lottie-ios (3.1.9)
   - MBProgressHUD (1.2.0)
-  - nanopb (1.30905.0):
-    - nanopb/decode (= 1.30905.0)
-    - nanopb/encode (= 1.30905.0)
-  - nanopb/decode (1.30905.0)
-  - nanopb/encode (1.30905.0)
   - ObjcExceptionBridging (1.0.1):
     - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
   - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
   - ObjectMapper (4.2.0)
-  - OHHTTPStubs/Core (9.0.0)
-  - OHHTTPStubs/Default (9.0.0):
+  - OHHTTPStubs/Core (9.1.0)
+  - OHHTTPStubs/Default (9.1.0):
     - OHHTTPStubs/Core
     - OHHTTPStubs/JSON
     - OHHTTPStubs/NSURLSession
     - OHHTTPStubs/OHPathHelpers
-  - OHHTTPStubs/JSON (9.0.0):
+  - OHHTTPStubs/JSON (9.1.0):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/NSURLSession (9.0.0):
+  - OHHTTPStubs/NSURLSession (9.1.0):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/OHPathHelpers (9.0.0)
-  - OHHTTPStubs/Swift (9.0.0):
+  - OHHTTPStubs/OHPathHelpers (9.1.0)
+  - OHHTTPStubs/Swift (9.1.0):
     - OHHTTPStubs/Default
   - PromiseKit (6.13.1):
     - PromiseKit/CorePromise (= 6.13.1)
@@ -97,24 +41,22 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (6.13.1):
     - PromiseKit/CorePromise
-  - PromisesObjC (1.2.10)
-  - Protobuf (3.12.0)
   - ReachabilitySwift (5.0.0)
-  - Sentry (5.2.0):
-    - Sentry/Core (= 5.2.0)
-  - Sentry/Core (5.2.0)
+  - RealmSwift (10.5.1)
+  - Sentry (6.1.0):
+    - Sentry/Core (= 6.1.0)
+  - Sentry/Core (6.1.0)
   - SimulatorStatusMagic (2.4.1)
-  - SwiftGen (6.3.0)
-  - SwiftLint (0.40.0)
-  - SwiftMessages (8.0.1):
-    - SwiftMessages/App (= 8.0.1)
-  - SwiftMessages/App (8.0.1)
-  - TABObserverSet (2.1.0)
+  - Sodium (0.9.1)
+  - SwiftGen (6.4.0)
+  - SwiftLint (0.42.0)
+  - SwiftMessages (8.0.5):
+    - SwiftMessages/App (= 8.0.5)
+  - SwiftMessages/App (8.0.5)
   - UIColor_Hex_Swift (5.1.0)
   - Version (0.8.0)
   - ViewRow (0.8):
     - Eureka (>= 5.0.0)
-  - WhatsNewKit (1.3.5)
   - XCGLogger (7.0.1):
     - XCGLogger/Core (= 7.0.1)
   - XCGLogger/Core (7.0.1):
@@ -122,14 +64,14 @@ PODS:
   - ZIPFoundation (0.9.11)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.0)
+  - Alamofire (~> 5.0)
   - CallbackURLKit
   - ColorPickerRow (from `https://github.com/EurekaCommunity/ColorPickerRow`, branch `master`)
-  - Communicator (~> 3.3.0)
+  - Communicator (~> 4.0)
   - CPDAcknowledgements (from `https://github.com/CocoaPods/CPDAcknowledgements`, branch `master`)
   - EMTLoadingIndicator (from `https://github.com/hirokimu/EMTLoadingIndicator`, branch `master`)
-  - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `xcode12`)
-  - Firebase/Messaging
+  - Eureka
+  - Firebase (from `Configuration/Podspecs/Firebase.podspec.json`)
   - KeychainAccess
   - Lokalise (~> 0.10.0)
   - lottie-ios
@@ -138,15 +80,16 @@ DEPENDENCIES:
   - OHHTTPStubs/Swift
   - PromiseKit
   - ReachabilitySwift
+  - RealmSwift (from `Configuration/Podspecs/Realm.podspec.json`)
   - Sentry
   - SimulatorStatusMagic
-  - SwiftGen (~> 6.3.0)
+  - Sodium (from `https://github.com/jedisct1/swift-sodium.git`, branch `master`)
+  - SwiftGen (~> 6.4.0)
   - SwiftLint
-  - SwiftMessages (from `https://github.com/SwiftKickMobile/SwiftMessages.git`, branch `master`)
+  - SwiftMessages
   - UIColor_Hex_Swift
   - Version
   - ViewRow (from `https://github.com/EurekaCommunity/ViewRow`, branch `master`)
-  - WhatsNewKit
   - XCGLogger
   - ZIPFoundation (~> 0.9)
 
@@ -155,33 +98,22 @@ SPEC REPOS:
     - Alamofire
     - CallbackURLKit
     - Communicator
-    - Firebase
-    - FirebaseCore
-    - FirebaseCoreDiagnostics
-    - FirebaseInstallations
-    - FirebaseInstanceID
-    - FirebaseMessaging
-    - GoogleDataTransport
-    - GoogleUtilities
+    - Eureka
     - KeychainAccess
     - Lokalise
     - lottie-ios
     - MBProgressHUD
-    - nanopb
     - ObjcExceptionBridging
     - OHHTTPStubs
     - PromiseKit
-    - PromisesObjC
-    - Protobuf
     - ReachabilitySwift
     - Sentry
     - SimulatorStatusMagic
     - SwiftGen
     - SwiftLint
-    - TABObserverSet
+    - SwiftMessages
     - UIColor_Hex_Swift
     - Version
-    - WhatsNewKit
     - XCGLogger
     - ZIPFoundation
 
@@ -195,15 +127,16 @@ EXTERNAL SOURCES:
   EMTLoadingIndicator:
     :branch: master
     :git: https://github.com/hirokimu/EMTLoadingIndicator
-  Eureka:
-    :branch: xcode12
-    :git: https://github.com/xmartlabs/Eureka.git
+  Firebase:
+    :podspec: Configuration/Podspecs/Firebase.podspec.json
   ObjectMapper:
     :branch: master
     :git: https://github.com/tristanhimmelman/ObjectMapper.git
-  SwiftMessages:
+  RealmSwift:
+    :podspec: Configuration/Podspecs/Realm.podspec.json
+  Sodium:
     :branch: master
-    :git: https://github.com/SwiftKickMobile/SwiftMessages.git
+    :git: https://github.com/jedisct1/swift-sodium.git
   ViewRow:
     :branch: master
     :git: https://github.com/EurekaCommunity/ViewRow
@@ -218,60 +151,47 @@ CHECKOUT OPTIONS:
   EMTLoadingIndicator:
     :commit: ff5b4ccf9bb424cb454e76ee91e32165d2d9c12c
     :git: https://github.com/hirokimu/EMTLoadingIndicator
-  Eureka:
-    :commit: f5651e328e099393e51b63f1abe78153cbacf90f
-    :git: https://github.com/xmartlabs/Eureka.git
   ObjectMapper:
     :commit: a593b4d647a970b3d184d046f8f52b945083ccf9
     :git: https://github.com/tristanhimmelman/ObjectMapper.git
-  SwiftMessages:
-    :commit: b9d445ae1ce7347500c99e217894d87322b20c23
-    :git: https://github.com/SwiftKickMobile/SwiftMessages.git
+  Sodium:
+    :commit: 8f94369541f5c048a9190a7095a941d4419f002d
+    :git: https://github.com/jedisct1/swift-sodium.git
   ViewRow:
-    :commit: cf9bfd2320a07de716476e8b1c194fe2845b46bd
+    :commit: ec49dbac2b76fd9790c674e435f28ea369141ed3
     :git: https://github.com/EurekaCommunity/ViewRow
 
 SPEC CHECKSUMS:
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
   CallbackURLKit: a940d1b869c70e1fa700ea06f988ba2a8963dafb
   ColorPickerRow: 409acc262ca04283eb56f54e813e775d2e99741e
-  Communicator: d870b95ca54965412790334620e2f188c68f2462
+  Communicator: d3412680ef84f3aa8a728eed69027b9671e736bf
   CPDAcknowledgements: 6e15e71849ba4ad5e8a17a0bb9d20938ad23bac8
   EMTLoadingIndicator: 0d3256b0de3e6ba5ab17048acc7aa93af34e48d3
-  Eureka: c883105488e05bc65539f583246ecf9657cabbfe
-  Firebase: 210f41ca352067d83b1ba4fd2e7fb49a0c017397
-  FirebaseCore: 9a41e2de78fef10f63cee30ab10e2945266bc1fc
-  FirebaseCoreDiagnostics: 7535fe695737f8c5b350584292a70b7f8ff0357b
-  FirebaseInstallations: 45f9d44d3a8d6f780fa337ee8987dad87210fcbc
-  FirebaseInstanceID: c4ad474b87787afd27d09541800620993b457d6f
-  FirebaseMessaging: 942cfe05b4f53c95ab8959395ca35c200398b2f0
-  GoogleDataTransport: 672fb0ce96fe7f7f31d43672fca62ad2c9c86f7b
-  GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
-  KeychainAccess: 3f760109aa99b05d0f231e28b22642da7153e38a
-  Lokalise: bc42066e2dde59b43b46e88ecc0b92b7d593dc72
-  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
+  Eureka: 1c2b8b5892bfb0e972d0fe05f8c09fd89f8625ec
+  Firebase: 0b898049b2691473053d5de73e9725b134556ad2
+  KeychainAccess: 9b07f665298d13c3a85881bd3171f6f49b8151c1
+  Lokalise: 252c397887dfd9983331abffa90ab60cdb004e19
+  lottie-ios: 3a3758ef5a008e762faec9c9d50a39842f26d124
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
-  nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
   ObjectMapper: 5a6c9f063ef67e7fc0d7eb8958919e3121396a96
-  OHHTTPStubs: cb29d2a9d09a828ecb93349a2b0c64f99e0db89f
+  OHHTTPStubs: 90eac6d8f2c18317baeca36698523dc67c513831
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
-  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
-  Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  Sentry: 6e04bc3e11bf771ca79140a112de64dcfbc7d8cb
+  RealmSwift: 61df06f3bb05565acbdbc12f4088d6047285038d
+  Sentry: 367db11b23fc30944358dbd198fa35a96ad7f2a5
   SimulatorStatusMagic: 28d4a9d1a500ac7cea0b2b5a43c1c6ddb40ba56c
-  SwiftGen: 3d5024a47ea79e408cded20763d7a17d18a4548c
-  SwiftLint: 4154893c73a4c52d6240195507eb7a3e3c64087e
-  SwiftMessages: 23da0c444ba4e3f4f2dc81edbc7cb70be18f69e3
-  TABObserverSet: dcdc5087b5dee54a9dcc29e155bb554394829f30
+  Sodium: 23d11554ecd556196d313cf6130d406dfe7ac6da
+  SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
+  SwiftLint: 4fa9579c63416865179bc416f0a92d55f009600d
+  SwiftMessages: 539fd54a766bf08ec667e90aa141c44b8b8aaa55
   UIColor_Hex_Swift: 8be7432edacb7fa91c78aa05ef3c30b66e4f9415
   Version: de5907f2c5d0f3cf21708db7801d1d5401139486
   ViewRow: 8da541e9c019f3be63f4e28f311a62cac2045ecf
-  WhatsNewKit: 1fe72bc0e0e13c8c47969da18de44f4c9b12767c
   XCGLogger: 1943831ef907df55108b0b18657953f868de973b
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: 9b8a817a320499f97e8a3adcee67159c468abf09
+PODFILE CHECKSUM: e19eaee6c3d0c3b2621c74e69c1e2703098419f5
 
-COCOAPODS: 1.10.0.beta.2
+COCOAPODS: 1.10.1

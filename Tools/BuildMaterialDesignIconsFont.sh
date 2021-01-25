@@ -3,35 +3,69 @@
 # Just run this script and it should handle everything.
 # You do need enough of a Python environment setup to be able to pip install things.
 
-pushd `dirname $0`
+set -euo pipefail
 
-# Ensure fonttools is installed
-echo "Ensuring fonttools is installed via pip"
+pushd `dirname $0` >/dev/null
+
+# helper tool
+FONT_RENAME_COMMIT=77734a1a165d25c8c83b2201c15e268da4a107b6
+
+# updating this requires re-executing swiftgen to pick up the new names
+# failing to keep the MDI and SVG versions in-sync will produce problems, as we use the SVG's JSON for codepoints
+MDI_COMMIT=34bdb8135d3307eac87bcbd7377c5ae344f09b42
+SVG_COMMIT=134fbd4fbf426f2b093c128ffefc727623fd39c0
+MDI_VERSION=5.9.55
+
+echo "Checking for latest..."
+
+LATEST=$(curl --silent https://api.github.com/repos/Templarian/MaterialDesign-Webfont/tags | sed -n -e 's/.*"name": "v\([^"]*\)".*/\1/p' | head -1)
+echo "Latest available: $LATEST; latest supported: $MDI_VERSION"
+
+if [[ 
+		-f MaterialDesignIcons.ttf && \
+		-f MaterialDesignIcons-$MDI_VERSION.ttf && \
+		-f MaterialDesignIcons.json && \
+		-f MaterialDesignIcons-$MDI_VERSION.json ]]; then
+	if [ $LATEST != $MDI_VERSION ]; then
+		echo "Out of date, but latest supported installed"
+	else
+		echo "Up-to-date"
+	fi
+	exit
+fi
+
+echo "Ensuring fonttools is installed via pip..."
 pip3 install --user fonttools
 
-if [ ! -f fontname.py ]; then
-  # Download the fontname script
-  echo "Downloading the fontname script"
-  curl -O --silent https://raw.githubusercontent.com/chrissimpkins/fontname.py/master/fontname.py
-  echo "Downloaded the fontname script"
+if [ ! -f fontname-$FONT_RENAME_COMMIT.py ]; then
+  echo "Downloading the fontname script..."
+  curl -O --silent https://raw.githubusercontent.com/chrissimpkins/fontname.py/77734a1a165d25c8c83b2201c15e268da4a107b6/fontname.py >fontname-$FONT_RENAME_COMMIT.py
 else
   echo "fontname.py is already downloaded"
 fi
 
-# Get the MDI TTF
-# versions >=5.0 do not work with the version of SwiftGen in Iconic, this is locking at version v4.9.95
-echo "Downloading the latest MaterialDesignIcons TTF"
-curl -O --silent https://raw.githubusercontent.com/Templarian/MaterialDesign-Webfont/57a8b3a30c24637bbfaec1485e7f045556e98f8c/fonts/materialdesignicons-webfont.ttf
-echo "Downloaded the latest MaterialDesignIcons TTF"
+echo "Downloading the latest MaterialDesignIcons TTF..."
+curl -O --silent https://raw.githubusercontent.com/Templarian/MaterialDesign-Webfont/$MDI_COMMIT/fonts/materialdesignicons-webfont.ttf
 
-# Rename file
-echo "Renaming TTF from materialdesignicons-webfont.ttf to MaterialDesignIcons.ttf"
-mv materialdesignicons-webfont.ttf MaterialDesignIcons.ttf
+echo "Downloading the latest MaterialDesignIcons JSON..."
+curl -O --silent https://raw.githubusercontent.com/Templarian/MaterialDesign-SVG/$SVG_COMMIT/meta.json
 
-# Change font name to be MaterialDesignIcons so it works with Iconic.
-echo "Changing font name to MaterialDesignIcons"
-python3 fontname.py MaterialDesignIcons MaterialDesignIcons.ttf
+echo "Renaming raw files..."
+mv materialdesignicons-webfont.ttf MaterialDesignIcons-$MDI_VERSION.ttf
+mv meta.json MaterialDesignIcons-$MDI_VERSION.json
 
-echo "Successfully built MaterialDesignIcons.ttf"
+echo "Changing font name..."
+python3 fontname-$FONT_RENAME_COMMIT.py MaterialDesignIcons MaterialDesignIcons-$MDI_VERSION.ttf
+
+echo "Creating links..."
+ln -f MaterialDesignIcons-$MDI_VERSION.ttf MaterialDesignIcons.ttf
+ln -f MaterialDesignIcons-$MDI_VERSION.json MaterialDesignIcons.json
+
+echo "Successfully built MaterialDesignIcons at version $MDI_VERSION"
+echo "Running Swiftgen..."
+
+pushd ..
+Pods/SwiftGen/bin/swiftgen
+popd
 
 popd

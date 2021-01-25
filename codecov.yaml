@@ -1,0 +1,18 @@
+coverage:
+  status:
+    project:
+      shared:
+        paths:
+        - Sources/Shared
+        threshold: 5%
+      app:
+        paths:
+        - Sources/App
+        informational: true
+    patch:
+      informational: true
+ignore:
+- Sources/Shared/Resources
+- Sources/App/Resources
+- Tests
+- Pods

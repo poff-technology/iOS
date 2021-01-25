@@ -46,6 +46,11 @@ Fetches the push notification certificates and saves them as p12 files in push_c
 fastlane ios icons
 ```
 Generate proper icons for all build trains
+### ios update_swiftgen_config
+```
+fastlane ios update_swiftgen_config
+```
+Update switftgen input/output files
 ### ios update_strings
 ```
 fastlane ios update_strings
@@ -66,16 +71,11 @@ Download App Store Connect metadata from Lokalise and upload to App Store Connec
 fastlane ios bump_build
 ```
 Bump build number
-### ios bump_version
+### ios set_version
 ```
-fastlane ios bump_version
+fastlane ios set_version
 ```
-Bump version number
-### ios set_beta_version
-```
-fastlane ios set_beta_version
-```
-
+Set version number
 ### ios ci
 ```
 fastlane ios ci

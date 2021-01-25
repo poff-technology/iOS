@@ -135,7 +135,7 @@ platform :ios do
     download_dsyms(output_directory: "./dSYMs", app_identifier: bundle_id())
     dir = "../dSYMS"
     files = Dir.foreach(dir).map { |x| File.expand_path("#{dir}/#{x}") }.select { |x| File.file?(x) }
-    upload_symbols_to_crashlytics(gsp_path: "./HomeAssistant/Resources/GoogleService-Info-Release.plist",
+    upload_symbols_to_crashlytics(gsp_path: "./Sources/App/Resources/GoogleService-Info-Release.plist",
                                   dsym_paths: files, dsym_worker_threads: 6)
     clean_build_artifacts
   end
@@ -145,7 +145,7 @@ platform :ios do
     download_dsyms(output_directory: "./dSYMs", app_identifier: bundle_id("beta"))
     dir = "../dSYMS"
     files = Dir.foreach(dir).map { |x| File.expand_path("#{dir}/#{x}") }.select { |x| File.file?(x) }
-    upload_symbols_to_crashlytics(gsp_path: "./HomeAssistant/Resources/GoogleService-Info-Beta.plist",
+    upload_symbols_to_crashlytics(gsp_path: "./Sources/App/Resources/GoogleService-Info-Beta.plist",
                                   dsym_paths: files, dsym_worker_threads: 6)
     clean_build_artifacts
   end
@@ -162,19 +162,24 @@ platform :ios do
 
   desc "Generate proper icons for all build trains"
   lane :icons do
-    appicon(appicon_path: "HomeAssistant/Resources/Assets.xcassets", appicon_image_file: "icons/dev.png", appicon_name: "AppIcon.dev.appiconset", appicon_devices: [:ipad, :iphone, :ios_marketing])
-    appicon(appicon_path: "HomeAssistant/Resources/Assets.xcassets", appicon_image_file: "icons/beta.png", appicon_name: "AppIcon.beta.appiconset", appicon_devices: [:ipad, :iphone, :ios_marketing])
-    appicon(appicon_path: "HomeAssistant/Resources/Assets.xcassets", appicon_image_file: "icons/release.png", appicon_devices: [:ipad, :iphone, :ios_marketing])
+    appicon(appicon_path: "Sources/App/Resources/Assets.xcassets", appicon_image_file: "icons/dev.png", appicon_name: "AppIcon.dev.appiconset", appicon_devices: [:ipad, :iphone, :ios_marketing, :macos])
+    appicon(appicon_path: "Sources/App/Resources/Assets.xcassets", appicon_image_file: "icons/beta.png", appicon_name: "AppIcon.beta.appiconset", appicon_devices: [:ipad, :iphone, :ios_marketing, :macos])
+    appicon(appicon_path: "Sources/App/Resources/Assets.xcassets", appicon_image_file: "icons/release.png", appicon_devices: [:ipad, :iphone, :ios_marketing, :macos])
 
     appicon(appicon_path: "WatchApp/Assets.xcassets", appicon_image_file: "icons/dev.png", appicon_name: "WatchIcon.dev.appiconset", appicon_devices: [:watch, :watch_marketing])
     appicon(appicon_path: "WatchApp/Assets.xcassets", appicon_image_file: "icons/beta.png", appicon_name: "WatchIcon.beta.appiconset", appicon_devices: [:watch, :watch_marketing])
     appicon(appicon_path: "WatchApp/Assets.xcassets", appicon_image_file: "icons/release.png", appicon_name: "WatchIcon.appiconset", appicon_devices: [:watch, :watch_marketing])
   end
 
+  desc "Update switftgen input/output files"
+  lane :update_swiftgen_config do
+    sh("cd ../ && ./Pods/SwiftGen/bin/swiftgen config generate-xcfilelists --inputs swiftgen.yml.file-list.in --outputs swiftgen.yml.file-list.out")
+  end
+
   desc "Download latest localization files from Lokalize"
   lane :update_strings do
-    lokalise(destination: "HomeAssistant/Resources/", use_original: true)
-    sh("cd ../ && ./Pods/SwiftGen/bin/swiftgen strings --output Shared/Resources/SwiftGen/Strings.swift --templateName structured-swift4 HomeAssistant/Resources/en.lproj/Localizable.strings")
+    lokalise(destination: "Sources/App/Resources/", use_original: true)
+    sh("cd ../ && ./Pods/SwiftGen/bin/swiftgen")
   end
 
   desc "Upload App Store Connect metadata to Lokalise"
@@ -187,52 +192,45 @@ platform :ios do
     lokalise_metadata(action: "update_itunes")
   end
 
+  private_lane :set_version_info do |options|
+    File.write(
+      '../Configuration/Version.xcconfig', 
+      "MARKETING_VERSION=#{options[:version]}\nCURRENT_PROJECT_VERSION=#{options[:build]}\n"
+    )
+  end
+
+  private_lane :get_xcconfig_marketing_version do
+    sh('cd .. ; . Configuration/Version.xcconfig ; echo $MARKETING_VERSION').strip!
+  end
+
+  private_lane :get_xcconfig_build_number do
+    sh('cd .. ; . Configuration/Version.xcconfig; echo $CURRENT_PROJECT_VERSION').to_i
+  end
+
   desc "Bump build number"
   lane :bump_build do
-    git_pull(only_tags: true)
-
-    increment_version_number(version_number: get_version_number(target: "HomeAssistant"))
-    increment_build_number
-
-    finalize_bump
+    set_version_info(
+      version: get_xcconfig_marketing_version(),
+      build: get_xcconfig_build_number() + 1
+    )
   end
 
-  desc "Bump version number"
-  lane :bump_version do
-    git_pull(only_tags: true)
+  desc "Set version number"
+  lane :set_version do |options|
+    version = options[:version]
+    build = options[:build] or 1
 
-    increment_version_number
-    increment_build_number(build_number: 1)
-
-    finalize_bump
-  end
-
-  lane :set_beta_version do
-    increment_version_number(version_number: get_version_number(target: "HomeAssistant"))
-    increment_build_number(build_number: latest_testflight_build_number(app_identifier: bundle_id("beta"), version: get_version_number(target: "HomeAssistant")) + 1)
-  end
-
-  private_lane :finalize_bump do
-    # Needed so that the changelog doesn"t include the version bump commit
-    change_log = change_log_since_last_tag
-
-    commit_message = "Version bump to #{complete_version_number}"
-
-    if is_ci
-      commit_message = "[ci skip] Version bump to #{complete_version_number}"
+    if not version
+      if !is_ci
+        version = prompt(text: "Version number: ")
+      else
+        UI.error "no version provided"
+      end
     end
 
-    commit_version_bump(message: commit_message, xcodeproj: "HomeAssistant.xcodeproj")
-
-    push_to_git_remote(remote_branch: git_branch)
-
-    set_github_release(
-      repository_name: "home-assistant/ios",
-      api_token: ENV["HOMEASSISTANT_GITHUB_API_TOKEN"],
-      name: complete_version_number,
-      tag_name: tag_name("testflight", get_version_number(target: "HomeAssistant"), get_build_number),
-      description: change_log || "Release commit",
-      is_prerelease: false
+    set_version_info(
+      version: version,
+      build: get_xcconfig_build_number() + build.to_i
     )
   end
 
@@ -272,7 +270,11 @@ platform :ios do
 
   desc "Run tests"
   lane :test do
-    run_tests(workspace: 'HomeAssistant.xcworkspace', scheme: 'Debug')
+    run_tests(
+      workspace: 'HomeAssistant.xcworkspace', 
+      scheme: 'Tests-Unit', 
+      result_bundle: true
+    )
   end
 
   desc "Submit a new beta build to TestFlight"
@@ -302,12 +304,12 @@ platform :ios do
     provisioningProfiles = {}
 
     if git_branch == "master"
-      scheme = "Release"
+      scheme = "App-Release"
       config = "Release"
       app_id = bundle_id()
       provisioningProfiles = provisioning_profile_map()
     elsif git_branch == "beta"
-      scheme = "Beta"
+      scheme = "App-Beta"
       config = "Beta"
       app_id = bundle_id("beta")
       provisioningProfiles = provisioning_profile_map("Beta")
